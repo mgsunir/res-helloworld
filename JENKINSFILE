@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+     stage('CleanUp Workspace'){
+            executeBasicShellCmds('CleanUp Workspace')            
+            steps {
+                deleteDir()
+                echo "Workspace cleaned"
+            }
+        }
         stage('Get Code') {
             steps {
                 executeBasicShellCmds('Get Code')
