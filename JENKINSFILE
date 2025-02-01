@@ -1,4 +1,12 @@
 def repo = "https://github.com/mgsunir/res-helloworld.git"
+
+def executeBasicShellCmds(def Stagge){
+    println(" Comenzando y estamos en:" + Stagge +"[ ${WORKSPACE} ] y JOB [ ${JOB_NAME} ] YY NODO:  [ ${NODE_NAME} ]")    
+    bat 'whoami && hostname'
+    pwd()
+    bat 'dir /B'
+    
+}
 pipeline {
     agent any
 
