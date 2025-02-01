@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-     stage('CleanUp Workspace'){
+       stage('CleanUp Workspace'){
             executeBasicShellCmds('CleanUp Workspace')            
             steps {
                 deleteDir()
