@@ -123,3 +123,4 @@ def executeBasicShellCmds(def Stagge){
     bat 'dir /B'
     
 }
+// java -jar c:\temp\jenkins-cli.jar -s http://localhost:8080/ -auth user:pass list-jobs
