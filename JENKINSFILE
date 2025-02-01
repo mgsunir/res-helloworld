@@ -1,61 +1,118 @@
 pipeline {
     agent any
 
-     stages {
+    stages {
         stage('Get Code') {
             steps {
-                // Obtener código del repo
-                git 'https://github.com/anieto-unir/helloworld.git'
+                executeBasicShellCmds('Get Code')
+                // println("Unit GetCode, Comenzando y estamos en: [ ${WORKSPACE} ] y JOB [ ${JOB_NAME} ] YY NODO:  [ ${NODE_NAME} ]")                
+                // bat 'whoami && hostname'
+                // pwd()
+        
+                git 'https://github.com/mgsunir/res-helloworld.git'
                 bat 'dir'
-                echo WORKSPACE
+                echo "WORKSPACE: ${env.WORKSPACE}"
             }
         }
-    
-        stage('Build') {
-           steps {
-              echo 'Eyyy, esto es Python. No hay que compilar nada!!!'
-           }
-        }
-        
-        stage('Tests')
-        {
-            parallel
-            {
-
-                stage('Unit') {
-                            steps {
-                                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                                    bat '''
-                                        set PYTHONPATH=.
-                                        pytest --junitxml=result-unit.xml test\\unit
-                                    '''
-                                }
-                            }
-                }
-                
-                        
-                stage('Rest') {
-                    steps {
-                        catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                            bat '''
-                                set FLASK_APP=app\\api.py
-                                start flask run
-                                start java -jar C:\\UNIR\\Ejercicios\\wiremock-jre8-standalone-2.28.0.jar --port 9090 --root-dir test\\wiremock
-                                
-                                ping -n 10 127.0.0.1
-                                
-                                pytest --junitxml=result-rest.xml test\\rest
-                            '''
-                        }
-                    }
-                }        
-            }
-        }
-        
-        stage ('Results') {
+        stage('Unit') {
             steps {
-                junit 'result*.xml'
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    // echo "Comenzando en ${NODE_NAME} y el JOB es ${JOB_NAME}"
+                    // println("Unit GetCode, Comenzando y estamos en: [ ${WORKSPACE} ] y JOB [ ${JOB_NAME} ] YY NODO:  [ ${NODE_NAME} ]")                
+                    // bat 'whoami && hostname'
+                    // pwd()
+                    executeBasicShellCmds('Unit')
+
+                    bat '''
+                    set PYTHONPATH=%WORKSPACE%
+                    c:\\Python312\\scripts\\pytest.exe test\\unit --junitxml=result-unit.xml
+                    '''
+                    junit 'result*.xml'
+                }
             }
-        }        
-     }
+        }
+        
+        stage('Coverage') {
+            steps {
+                // println("Unit GetCode, Comenzando y estamos en: [ ${WORKSPACE} ] y JOB [ ${JOB_NAME} ] YY NODO:  [ ${NODE_NAME} ]")                
+                // bat 'whoami && hostname'
+                // pwd()
+                executeBasicShellCmds('Coverage')
+
+
+                script {
+                    
+                    bat 'c:\\Python312\\scripts\\coverage run --branch --source=app --omit=app\\_init.py,app\\api.py -m pytest test\\unit'
+                    bat 'c:\\Python312\\scripts\\coverage xml'
+                    
+                    
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                        cobertura coberturaReportFile: 'coverage.xml', 
+                                  conditionalCoverageTargets: '100,0,80', 
+                                  lineCoverageTargets: '100,0,90'
+                    }
+                }
+            }
+        }
+
+        stage('Static') {
+            steps {
+                // println("Unit GetCode, Comenzando y estamos en: [ ${WORKSPACE} ] y JOB [ ${JOB_NAME} ] YY NODO:  [ ${NODE_NAME} ]")                
+                // bat 'whoami && hostname'
+                // pwd()
+                executeBasicShellCmds('Static')
+                
+                script {
+                    bat 'c:\\Python312\\scripts\\flake8.exe --exit-zero --format=pylint app >flake8.out'
+                    recordIssues tools: [flake8(name: 'Flake8', pattern: 'flake8.out')], 
+                                qualityGates: [[threshold: 10, type: 'TOTAL', unstable: true], 
+                                               [threshold: 11, type: 'TOTAL', unstable: false]] 
+                }
+            }
+        }
+        
+        stage('Performance'){
+            steps{
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+                // println("Unit GetCode, Comenzando y estamos en: [ ${WORKSPACE} ] y JOB [ ${JOB_NAME} ] YY NODO:  [ ${NODE_NAME} ]")                
+                // bat 'whoami && hostname'
+                // pwd()
+                executeBasicShellCmds('Performance')
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+                    
+                    bat '''
+                        set FLASK_APP=app\\api.py
+                        echo "Arrancar Flash"
+                        start c:\\Python312\\Scripts\\flask.exe run
+                        echo "Loop 4 wait"
+                        :loop
+                        curl http://localhost:5000 | find "Hello" 
+                        if not  %errorlevel% equ 0 goto :loop
+                        
+                        c:\\apache-jmeter-5.6.3\\bin\\jmeter.bat -n -t %WORKSPACE%\\test\\jmeter\\flask.jmx -f -l flask.jtl
+                        
+                        
+                    '''
+                    }
+                    // Ejecutamos el plugin performance para la visualización de los resultados
+                    perfReport sourceDataFiles: 'flask.jtl'
+                    bat 'del /Q *.* '
+                    bat 'dir /B'
+                    bat 'del /S /Q *.* '
+                    bat 'dir /B'
+
+                
+            }
+        }
+    }
+    
+}
+}
+
+def executeBasicShellCmds(def Stagge){
+    println(" Comenzando y estamos en:" + Stagge +"[ ${WORKSPACE} ] y JOB [ ${JOB_NAME} ] YY NODO:  [ ${NODE_NAME} ]")    
+    bat 'whoami && hostname'
+    pwd()
+    bat 'dir /B'
+    
 }
