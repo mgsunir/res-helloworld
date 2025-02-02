@@ -62,7 +62,53 @@ class TestCalculate(unittest.TestCase):
         self.assertRaises(TypeError, self.calc.divide, None, object())
         self.assertRaises(TypeError, self.calc.divide, object(),None)
 
+    ######################################################################
+    # Test NOK add
+    def test_add_method_fails_with_nan_parameter(self):
+        self.assertRaises(TypeError, self.calc.add, "2", 2)
+        self.assertRaises(TypeError, self.calc.add, 2, "2")
+        self.assertRaises(TypeError, self.calc.add, "2", "2")
+        
+        self.assertRaises(TypeError, self.calc.add, None, 2)
+        self.assertRaises(TypeError, self.calc.add, 2, None)
+        self.assertRaises(TypeError, self.calc.add, None, None)
+
+        self.assertRaises(TypeError, self.calc.add, "2", None)
+        self.assertRaises(TypeError, self.calc.add, None, "2")
+
+        
+        self.assertRaises(TypeError, self.calc.add, object(), 2)
+        self.assertRaises(TypeError, self.calc.add, 2, object())
+        self.assertRaises(TypeError, self.calc.add, object(), object())
+
+        self.assertRaises(TypeError, self.calc.add, object(), "2")
+        self.assertRaises(TypeError, self.calc.add, "2", object())
+        
+        self.assertRaises(TypeError, self.calc.add, None, object())
+        self.assertRaises(TypeError, self.calc.add, object(),None)
+
+
     
+        
+    # Test NOK divide
+    def test_divide_method_fails_with_nan_parameter(self):
+        self.assertRaises(TypeError, self.calc.divide, "2", 2)
+        self.assertRaises(TypeError, self.calc.divide, 2, "2")
+        self.assertRaises(TypeError, self.calc.divide, "2", "2")
+        
+        self.assertRaises(TypeError, self.calc.divide, 2, None)
+        self.assertRaises(TypeError, self.calc.divide, None, 2)
+        self.assertRaises(TypeError, self.calc.divide, None, None)
+
+        self.assertRaises(TypeError, self.calc.divide, 2, object())
+        self.assertRaises(TypeError, self.calc.divide, object(),2)
+        self.assertRaises(TypeError, self.calc.divide, object(),object())
+        
+        self.assertRaises(TypeError, self.calc.divide, object(), "2")
+        self.assertRaises(TypeError, self.calc.divide, "2", object())
+        
+        self.assertRaises(TypeError, self.calc.divide, None, object())
+        self.assertRaises(TypeError, self.calc.divide, object(),None)
 
 
 
