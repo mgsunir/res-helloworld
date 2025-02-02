@@ -230,7 +230,7 @@ class TestCalculate(unittest.TestCase):
         self.assertRaises(TypeError, self.calc.power, None, None)
 
         self.assertRaises(TypeError, self.calc.power, "2", None)
-        self.assertRaises(TypeError, self.calc.power, none, "2")
+        self.assertRaises(TypeError, self.calc.power, None, "2")
         
         self.assertRaises(TypeError, self.calc.power, "2", object())
         self.assertRaises(TypeError, self.calc.power, object(), "2")
