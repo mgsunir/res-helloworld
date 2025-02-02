@@ -8,7 +8,7 @@ from app.calc import Calculator
 class TestCalculate(unittest.TestCase):
     def setUp(self):
         self.calc = Calculator()
-
+    # Test Ok sum
     def test_add_method_returns_correct_result(self):
         self.assertEqual(4, self.calc.add(2, 2))
         self.assertEqual(0, self.calc.add(2, -2))
@@ -16,21 +16,38 @@ class TestCalculate(unittest.TestCase):
         self.assertEqual(-4, self.calc.add(-2, -2))
         self.assertEqual(1, self.calc.add(1, 0))
         self.assertEqual(1, self.calc.add(0, 1))
+        self.assertEqual(0, self.calc.add(0, 0))
 
+    # Las duplico para result1
     def test_add_method_returns_correct_result1(self):
-        self.assertEqual(6, self.calc.add(3, 3))
+        self.assertEqual(4, self.calc.add(2, 2))
         self.assertEqual(0, self.calc.add(2, -2))
         self.assertEqual(0, self.calc.add(-2, 2))
+        self.assertEqual(-4, self.calc.add(-2, -2))
         self.assertEqual(1, self.calc.add(1, 0))
-        self.assertEqual(1, self.calc.add(0, 0))
-        
+        self.assertEqual(1, self.calc.add(0, 1))
+        self.assertEqual(0, self.calc.add(0, 0))
+ 
+    # Test OK divide
     def test_divide_method_returns_correct_result(self):
-        self.assertEqual(1, self.calc.divide(2, 2))
+        self.assertEqual(1.0, self.calc.divide(2, 2))
         self.assertEqual(1.5, self.calc.divide(3, 2))
         self.assertEqual(0.5, self.calc.divide(1, 2))
-        self.assertEqual(0.5, self.calc.divide(3, 2))
-        self.assertEqual(2, self.calc.divide(4, 2))
+        self.assertEqual(2.0, self.calc.divide(4, 2))
+        self.assertEqual(0, self.calc.divide(0, 2))
+        # negatives
+        self.assertEqual(-1, self.calc.divide(-2, 2))
+        self.assertEqual(-1, self.calc.divide(2, -2))
+        self.assertEqual(1, self.calc.divide(-2, -2))
+
+        # Exceptions
         self.assertRaises(TypeError, self.calc.divide, "2", 2)
+        self.assertRaises(TypeError, self.calc.divide, 2, "2")
+        self.assertRaises(TypeError, self.calc.divide, "2", "2")
+        self.assertRaises(TypeError, self.calc.divide, 2, None)
+        self.assertRaises(TypeError, self.calc.divide, None, 2)
+        self.assertRaises(TypeError, self.calc.divide, None, None)
+        
   
     def test_add_method_fails_with_nan_parameter(self):
         self.assertRaises(TypeError, self.calc.add, "2", 2)
