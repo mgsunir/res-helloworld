@@ -203,18 +203,18 @@ class TestCalculate(unittest.TestCase):
         self.assertRaises(TypeError, self.calc.power, object(), 2)
         self.assertRaises(TypeError, self.calc.power, object(), object())
         
-        self.assertRaises(TypeError, self.calc.power, 2, none)
-        self.assertRaises(TypeError, self.calc.power, none, 2)
-        self.assertRaises(TypeError, self.calc.power, none, none)
+        self.assertRaises(TypeError, self.calc.power, 2, None)
+        self.assertRaises(TypeError, self.calc.power, None, 2)
+        self.assertRaises(TypeError, self.calc.power, None, None)
 
-        self.assertRaises(TypeError, self.calc.power, "2", none)
-        self.assertRaises(TypeError, self.calc.power, none, "2")
+        self.assertRaises(TypeError, self.calc.power, "2", None)
+        self.assertRaises(TypeError, self.calc.power, None, "2")
         
         self.assertRaises(TypeError, self.calc.power, "2", object())
         self.assertRaises(TypeError, self.calc.power, object(), "2")
 
-        self.assertRaises(TypeError, self.calc.power, none, object())
-        self.assertRaises(TypeError, self.calc.power, object(), none)
+        self.assertRaises(TypeError, self.calc.power, None, object())
+        self.assertRaises(TypeError, self.calc.power, object(), None)
 
     def test_power_method_fails_with_nan_parameter(self):
         self.assertRaises(TypeError, self.calc.power, "0", 2)
@@ -225,18 +225,18 @@ class TestCalculate(unittest.TestCase):
         self.assertRaises(TypeError, self.calc.power, object(), 2)
         self.assertRaises(TypeError, self.calc.power, object(), object())
         
-        self.assertRaises(TypeError, self.calc.power, 2, none)
-        self.assertRaises(TypeError, self.calc.power, none, 2)
-        self.assertRaises(TypeError, self.calc.power, none, none)
+        self.assertRaises(TypeError, self.calc.power, 2, None)
+        self.assertRaises(TypeError, self.calc.power, None, 2)
+        self.assertRaises(TypeError, self.calc.power, None, None)
 
-        self.assertRaises(TypeError, self.calc.power, "2", none)
+        self.assertRaises(TypeError, self.calc.power, "2", None)
         self.assertRaises(TypeError, self.calc.power, none, "2")
         
         self.assertRaises(TypeError, self.calc.power, "2", object())
         self.assertRaises(TypeError, self.calc.power, object(), "2")
 
-        self.assertRaises(TypeError, self.calc.power, none, object())
-        self.assertRaises(TypeError, self.calc.power, object(), none)
+        self.assertRaises(TypeError, self.calc.power, None, object())
+        self.assertRaises(TypeError, self.calc.power, object(), None)
 
     
         
@@ -260,18 +260,18 @@ class TestCalculate(unittest.TestCase):
         self.assertRaises(TypeError, self.calc.substract, object(), 2)
         self.assertRaises(TypeError, self.calc.power, object(), object())
         
-        self.assertRaises(TypeError, self.calc.substract, 2, none)
-        self.assertRaises(TypeError, self.calc.substract, none, 2)
-        self.assertRaises(TypeError, self.calc.substract, none, none)
+        self.assertRaises(TypeError, self.calc.substract, 2, None)
+        self.assertRaises(TypeError, self.calc.substract, None, 2)
+        self.assertRaises(TypeError, self.calc.substract, None, None)
 
-        self.assertRaises(TypeError, self.calc.susbtract, "2", none)
-        self.assertRaises(TypeError, self.calc.substract, none, "2")
+        self.assertRaises(TypeError, self.calc.susbtract, "2", None)
+        self.assertRaises(TypeError, self.calc.substract, None, "2")
         
         self.assertRaises(TypeError, self.calc.substract, "2", object())
         self.assertRaises(TypeError, self.calc.substract, object(), "2")
 
-        self.assertRaises(TypeError, self.calc.substract, none, object())
-        self.assertRaises(TypeError, self.calc.substract, object(), none)
+        self.assertRaises(TypeError, self.calc.substract, None, object())
+        self.assertRaises(TypeError, self.calc.substract, object(), None)
 
 
 if __name__ == "__main__":  # pragma: no cover
