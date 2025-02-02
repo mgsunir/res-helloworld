@@ -236,8 +236,7 @@ class TestCalculate(unittest.TestCase):
         self.assertEqual(4, self.calc.substract(10, 6))
         self.assertEqual(-2, self.calc.substract(256, 258))
         self.assertEqual(-1, self.calc.substract(-1, 0))
-        self.assertEqual(0, self.calc.substract(0, 0))
-        self.assertEqual(0, self.calc.substract(0, 0))
+        self.assertEqual(0, self.calc.substract(0, 0))        
         self.assertEqual(1, self.calc.substract(0, -1))
         self.assertEqual(0, self.calc.substract(-1, -1))
         self.assertEqual(-1, self.calc.substract(-3, -2))
@@ -263,8 +262,8 @@ class TestCalculate(unittest.TestCase):
         # self.assertRaises(TypeError, self.calc.substract, "2", object())
         # self.assertRaises(TypeError, self.calc.substract, object(), "2")
 
-        # self.assertRaises(TypeError, self.calc.substract, None, object())
-        # self.assertRaises(TypeError, self.calc.substract, object(), None)
+        self.assertRaises(TypeError, self.calc.substract, None, object())
+        self.assertRaises(TypeError, self.calc.substract, object(), None)
 
 
 if __name__ == "__main__":  # pragma: no cover
