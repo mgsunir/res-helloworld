@@ -122,6 +122,26 @@ pipeline {
                 }
             }
         }
+                
+        stage('Coverage'){
+            steps{
+                unstash 'app'
+                unstash 'test'
+                bat '''
+                // Lanzamos pruebas de cobertura
+                c:\\Python312\\scripts\\coverage run --branch --source=app --omit=app/__init__.py,app/api.py -m pytest test/unit
+                
+                // Sacamos los datos
+                c:\\Python312\\scripts\\coverage xml
+                '''
+
+                // Exponemos los resultados de forma gráfica con el plugin cobertura
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){    
+                    cobertura coberturaReportFile: 'coverage.xml', onlyStable: false, conditionalCoverageTargets: '90,0,80', lineCoverageTargets: '95,0,85'
+                }
+            }
+        }
+        
         
         
         stage('Performance'){
