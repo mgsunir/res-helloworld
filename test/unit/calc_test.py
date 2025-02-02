@@ -261,8 +261,8 @@ class TestCalculate(unittest.TestCase):
         self.assertRaises(TypeError, self.calc.substract, None, "2")
         # self.assertRaises(TypeError, self.calc.substract, None, "2")
         
-        # self.assertRaises(TypeError, self.calc.substract, "2", object())
-        # self.assertRaises(TypeError, self.calc.substract, object(), "2")
+        self.assertRaises(TypeError, self.calc.substract, "2", object())
+        self.assertRaises(TypeError, self.calc.substract, object(), "2")
 
         self.assertRaises(TypeError, self.calc.substract, None, object())
         self.assertRaises(TypeError, self.calc.substract, object(), None)
