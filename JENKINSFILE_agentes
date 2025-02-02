@@ -3,6 +3,7 @@
 // Windows2 : alltests dev agente_jenkins2 windows
 
 def repo = "https://github.com/mgsunir/res-helloworld.git"
+def rama = "feature_fix_coverage"
 
 def executeBasicShellCmds(def Stagge){
     println(" Comenzando y estamos en:" + Stagge +"[ ${WORKSPACE} ] y JOB [ ${JOB_NAME} ] YY NODO:  [ ${NODE_NAME} ]")    
@@ -32,7 +33,9 @@ pipeline {
                 // bat 'whoami && hostname'
                 // pwd()
         
-                git "${repo}"
+                // git "${repo}"
+                // // git branch: 'feature_fix_coverage', url: 'https://github.com/mgsunir/res-helloworld.git'
+                git branch: "${rama}", url:  "${repo}"
                 bat 'dir'
                 echo "WORKSPACE: ${env.WORKSPACE}"
                 
