@@ -110,6 +110,67 @@ class TestCalculate(unittest.TestCase):
         self.assertRaises(TypeError, self.calc.divide, None, object())
         self.assertRaises(TypeError, self.calc.divide, object(),None)
 
+ # Test OK multiply
+    def test_multiply_method_returns_correct_result(self):
+        self.assertEqual(4, self.calc.multiply(2, 2))
+        self.assertEqual(0, self.calc.multiply(1, 0))
+        self.assertEqual(0, self.calc.multiply(0, 1))
+        self.assertEqual(0, self.calc.multiply(1, 0))
+        self.assertEqual(0, self.calc.multiply(0, 0))
+        
+        self.assertEqual(0, self.calc.multiply(-1, 0))
+        self.assertEqual(0, self.calc.multiply(0, -1))
+        self.assertEqual(-2, self.calc.multiply(-1, 2))
+        self.assertEqual(2, self.calc.multiply(-1, -2))
+        
+        # Pongo tambien casos negativois
+        
+        self.assertRaises(TypeError, self.calc.multiply, "2", 2)
+        self.assertRaises(TypeError, self.calc.multiply, 2, "2")
+        self.assertRaises(TypeError, self.calc.multiply, "2", "2")
+        
+        self.assertRaises(TypeError, self.calc.multiply, None, 2)
+        self.assertRaises(TypeError, self.calc.multiply, 2, None)
+        self.assertRaises(TypeError, self.calc.multiply, None, None)
+
+        self.assertRaises(TypeError, self.calc.multiply, "2", None)
+        self.assertRaises(TypeError, self.calc.multiply, None, "2")
+
+        
+        self.assertRaises(TypeError, self.calc.multiply, object(), 2)
+        self.assertRaises(TypeError, self.calc.multiply, 2, object())
+        self.assertRaises(TypeError, self.calc.multiply, object(), object())
+
+        self.assertRaises(TypeError, self.calc.multiply, object(), "2")
+        self.assertRaises(TypeError, self.calc.multiply, "2", object())
+        
+        self.assertRaises(TypeError, self.calc.multiply, None, object())
+        self.assertRaises(TypeError, self.calc.multiply, object(),None)
+
+        
+    # Exceptions multiply
+    def test_multiply_method_fails_with_nan_parameter(self):
+        self.assertRaises(TypeError, self.calc.multiply, "2", 2)
+        self.assertRaises(TypeError, self.calc.multiply, 2, "2")
+        self.assertRaises(TypeError, self.calc.multiply, "2", "2")
+        
+        self.assertRaises(TypeError, self.calc.multiply, None, 2)
+        self.assertRaises(TypeError, self.calc.multiply, 2, None)
+        self.assertRaises(TypeError, self.calc.multiply, None, None)
+
+        self.assertRaises(TypeError, self.calc.multiply, "2", None)
+        self.assertRaises(TypeError, self.calc.multiply, None, "2")
+
+        
+        self.assertRaises(TypeError, self.calc.multiply, object(), 2)
+        self.assertRaises(TypeError, self.calc.multiply, 2, object())
+        self.assertRaises(TypeError, self.calc.multiply, object(), object())
+
+        self.assertRaises(TypeError, self.calc.multiply, object(), "2")
+        self.assertRaises(TypeError, self.calc.multiply, "2", object())
+        
+        self.assertRaises(TypeError, self.calc.multiply, None, object())
+        self.assertRaises(TypeError, self.calc.multiply, object(),None)
 
 
 if __name__ == "__main__":  # pragma: no cover
