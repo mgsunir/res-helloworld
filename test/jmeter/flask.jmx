@@ -19,7 +19,7 @@
           <!-- 20 bucles -->
           <stringProp name="LoopController.loops">20</stringProp> 
         </elementProp>
-        <!-- 5 hilos - threads > 
+        <!-- 5 hilos  threads --> 
         <stringProp name="ThreadGroup.num_threads">5</stringProp> 
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
